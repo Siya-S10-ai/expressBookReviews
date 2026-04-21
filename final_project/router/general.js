@@ -25,7 +25,7 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/', async (req, res) {
+public_users.get('/',async (req, res) => {
   try{
     const result = await Promise.resolve(books);
 
