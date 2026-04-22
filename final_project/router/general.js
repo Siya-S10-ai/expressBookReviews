@@ -60,18 +60,28 @@ public_users.get('/author/:author', async (req, res) => {
 });
 
 // Get all books based on title
-public_users.get('/title/:title',function (req, res) {
-  const keys = Object.keys(books);
-  const title = req.params.title;
-  const result = keys.filter((key) => books[key]["title"] === title)
-  .map((key) => ({...books[key], isbn: key}));
-  res.send(result);
+public_users.get('/title/:title',async (req, res) => {
+  try{
+    const keys = Object.keys(books);
+    const title = req.params.title;
+    // Using Promise.resolve
+    const result = await Promise.resolve(
+       keys.filter((key) => books[key]["title"] === title)
+    .map((key) => ({...books[key], isbn: key}))
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching book by title', error });
+  }
 });
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
-  const review = req.params.isbn;
-  res.send(books[review]["reviews"]);
+  const isbn = req.params.isbn;
+  res.status(200).json({
+    message: "Book successfully retrieved.",
+    reviews: books[isbn].reviews
+  });
 });
 
 
