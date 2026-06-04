@@ -4,7 +4,7 @@ const session = require('express-session')
 const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
 // Make it work in a very funny way.
-const dumb_users = require('./router/')
+//const dumb_users = require('./router/')
 
 const app = express();
 
